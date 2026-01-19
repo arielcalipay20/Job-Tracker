@@ -18,6 +18,27 @@ async function testAPI() {
             const testId = getAll.data[0]._id;
             console.log("First application id is: ", testId);
 
+            //Create application
+            console.log("Create Application");
+            const created = await axios.post(`${BASEURL}`,
+                {
+                    company: 'Created Company',
+                    position: 'Created Position',
+                    status: 'Interview',
+                    appliedDate: '2025-01-19',
+                    notes: 'Created via test script'
+                }
+            );
+            console.log("Created application: ", created.data);
+
+            //Verify Creation
+            console.log("Verify Created Application");
+            const verifyCreated = await axios.get(BASEURL);
+            const lastIndex = verifyCreated.data.length - 1;
+            const lastId = verifyCreated.data[lastIndex]._id;
+            const createdApp = verifyCreated.data.find(app => app._id === lastId);
+            console.log("Created application: ", createdApp);
+
             //Update application
             console.log("Update Application");
             const updated = await axios.put(`${BASEURL}/${testId}`,
