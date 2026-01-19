@@ -18,17 +18,17 @@ describe('Application Routes Unit Tests', () => {
   });
 
   test('GET / should return all applications', async () => {
-    // Arrange: Set up fake data
+    //Set up fake data
     const mockApps = [
       { _id: '1', company: 'Google', position: 'Engineer' },
       { _id: '2', company: 'Meta', position: 'Developer' }
     ];
     Application.find.mockResolvedValue(mockApps);
 
-    // Act: Make the request
+    //Make request
     const response = await request(app).get('/api/applications');
 
-    // Assert: Check the results
+    //Check results
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockApps);
     expect(Application.find).toHaveBeenCalledTimes(1);
